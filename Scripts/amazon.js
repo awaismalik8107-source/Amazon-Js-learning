@@ -23,7 +23,7 @@ products.forEach((product,index) => {//Add new html in all loops
           </div>
 
           <div class="product-price">
-            $${(product.price_cents/100).toFixed(2)}
+            $${(product.priceCents/100).toFixed(2)}
           </div>
 
           <div class="product-quantity-container">
@@ -48,12 +48,44 @@ products.forEach((product,index) => {//Add new html in all loops
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary">
+          <button class="add-to-cart-button button-primary add-cart-work" 
+          data-product-id="${product.id}">
             Add to Cart
           </button>
         </div>`
 
-});
+});//data attribute connect some data to the html tag 
 console.log(productHtml);
 
 document.querySelector('.js-product-gen').innerHTML= `${productHtml}`;
+
+document.querySelectorAll('.add-cart-work').forEach((button)=>
+{
+  
+  button.addEventListener('click',() =>{
+    const productId=button.dataset.productId;
+    let flag;
+
+    cart.forEach((item)=>{
+      if(productId === item.productId)
+      {
+        flag=item;
+      }//use a flag
+    });
+    if(flag)
+    {
+      flag.quantity+=1;
+    }
+    else{
+    
+    cart.push({
+      productId : productId,
+      quantity : 1
+
+    });
+    
+  }
+  console.log(cart);
+  });
+});
+
