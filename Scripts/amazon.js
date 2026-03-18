@@ -85,4 +85,3 @@ document.querySelectorAll('.add-cart-work').forEach((button)=>
   console.log(cart);
   });
 });
-
